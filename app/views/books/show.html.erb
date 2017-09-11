@@ -8,25 +8,69 @@
 
 <div class="row">
   <div class="col-xs-5 col-xs-offset-3">
-    <%= form_for @review do |f| %>
-        <p><b>Review</b></p>
-        <p>Rating: <%= f.select(:rating, (1..5).to_a) %></p>
-        <p>Comment:</p>
-        <p>
-          <%= f.text_area :body %>
-          <%= f.hidden_field :book_id, value: @book.id %>
-        </p>
-        <p><%= f.submit :submit %></p>
-    <% end %>
+
+    <div class="well well-sm">
+
+      <div class="row" id="post-review-box">
+        <div class="col-md-12">
+
+          <%= form_for @review do |f| %>
+              <p>
+                <%= f.text_area :body, cols: 50, rows: 5, class: "form-control", placeholder: "Please add a comment"  %>
+                <%= f.hidden_field :book_id, value: @book.id %>
+              </p>
+              <p>Rating: <%= f.select(:rating, (1..5).to_a) %></p>
+
+              <div class="text-right">
+                <%= f.submit :save, class: "btn btn-success btn-lg" %>
+              </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </div>
 
-<div class="row">
-  <div class="col-xs-5 col-xs-offset-3">
+
     <% @book.reviews.each do |r| %>
-        <p><b>Rating:</b> <%= r.rating %></p>
-        <p><b>Comment:</b> <%= r.body %></p>
-        <p><b>By:</b> <%= r.user.full_name %></p>
+    <div class="row">
+      <div class="col-xs-5 col-xs-offset-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+          </div><!--/panel-heading-->
+          <div class="panel-body" itemprop="reviewBody">
+            <p><%= r.body %></p>
+
+            <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+              <small>
+                <span itemprop="name"><%= r.user.full_name %>></span>
+              </small>
+            </span><!--/author schema -->
+
+
+              <span class="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                <meta itemprop="worstRating" content="1">
+                  <span itemprop="ratingValue"><%= r.rating %></span> /
+                <span itemprop="bestRating"> stars </span>
+              </span><!--/reviewRating-->
+            <% r.rating.to_i.times do %>
+                <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <% end %>
+
+          </div><!--/panel-body-->
+          <div class="panel-footer clearfix">
+
+          </div><!--/panel-footer-->
+        </div><!--/panel-->
+      </div><!--/col-sm-6-->
+      </div>
+    </div>
     <% end %>
-  </div>
-</div>
+
+
+
+
+

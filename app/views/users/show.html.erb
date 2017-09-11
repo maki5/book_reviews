@@ -27,4 +27,43 @@
       </div>
     </div>
   </div>
+
+  </br>
+  <p><b>Reviews</b></p>
+  </br>
+
+  <% current_user.reviews.each do |r| %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+            </div><!--/panel-heading-->
+            <div class="panel-body" itemprop="reviewBody">
+              <p><%= r.body %></p>
+
+            <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+              <small>
+                <span itemprop="name"><%= r.user.full_name %>></span>
+              </small>
+            </span><!--/author schema -->
+
+
+              <span class="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                <meta itemprop="worstRating" content="1">
+                  <span itemprop="ratingValue"><%= r.rating %></span> /
+                <span itemprop="bestRating"> stars </span>
+              </span><!--/reviewRating-->
+              <% r.rating.to_i.times do %>
+                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+              <% end %>
+
+            </div><!--/panel-body-->
+            <div class="panel-footer clearfix">
+
+            </div><!--/panel-footer-->
+          </div><!--/panel-->
+        </div><!--/col-sm-6-->
+      </div>
+      </div>
+  <% end %>
 </div>
