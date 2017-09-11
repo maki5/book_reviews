@@ -3,11 +3,12 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def update
-
-    mes = current_user.update_attributes(permitted_params) ? "updated" : book.errors.full_messages
+    #assign current user to instance var for testing
+    @current_user = current_user
+    mes = @current_user.update_attributes(permitted_params) ? "updated" : book.errors.full_messages
 
     respond_to do |format|
-      format.html {redirect_to user_path(current_user), notice: mes}
+      format.html {redirect_to user_path(@current_user), notice: mes}
     end
   end
 
