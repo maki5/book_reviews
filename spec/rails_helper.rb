@@ -62,3 +62,15 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.extend ControllerMacros, :type => :controller
 end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    # Choose a test framework:
+    with.test_framework :rspec
+
+    # Choose one or more libraries:
+    with.library :active_record
+    # Or, choose the following (which implies all of the above):
+    with.library :rails
+  end
+end
