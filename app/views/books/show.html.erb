@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-xs-5 col-xs-offset-3">
+    <p><%= image_tag @book.image, class: "card-img-top", width: '150rem' %></p>
+    <p><%= @book.title %></p>
+    <p><%= @book.description %></p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-5 col-xs-offset-3">
+    <%= form_for @review do |f| %>
+        <p><b>Review</b></p>
+        <p>Rating: <%= f.select(:rating, (1..5).to_a) %></p>
+        <p>Comment:</p>
+        <p>
+          <%= f.text_area :body %>
+          <%= f.hidden_field :book_id, value: @book.id %>
+        </p>
+        <p><%= f.submit :submit %></p>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-5 col-xs-offset-3">
+    <% @book.reviews.each do |r| %>
+        <p><b>Rating:</b> <%= r.rating %></p>
+        <p><b>Comment:</b> <%= r.body %></p>
+        <p><b>By:</b> <%= r.user.full_name %></p>
+    <% end %>
+  </div>
+</div>
