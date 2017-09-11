@@ -54,3 +54,9 @@ gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) support
 gem "twitter-bootstrap-rails"
 gem "paperclip", "~> 5.0.0"
 gem 'kaminari'
+
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.6'
+  gem 'factory_girl_rails'
+end
