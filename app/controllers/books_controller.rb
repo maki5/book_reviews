@@ -3,7 +3,7 @@ class BooksController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @books = Book.order(:title)
+    @books = Book.order(:title).page params[:page]
   end
 
   def new
@@ -26,6 +26,6 @@ class BooksController < ApplicationController
 
 
   def permitted_params
-    params.require(:book).permit(:title, :author, :image)
+    params.require(:book).permit(:title, :author, :image, :description)
   end
 end
